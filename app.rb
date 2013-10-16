@@ -16,6 +16,6 @@ post '/commits' do
         # obfuscate message with '*'
         obfuscated = c['message'].gsub /[^\n\r]/, "*"
         "#{c['utctimestamp']}, #{obfuscated}"
-        end.join "\n"
+        end.join
   puts msg
 end
