@@ -26,9 +26,9 @@ class Application < Sinatra::Base
     puts msg
 
     # replace file content with msg and commit with msg
-    client = Octokit::Client.new ENV['ACCESS_TOKEN']
-    sha = client.contents(REPO, :path => LOG_FILE)[:sha]
-    client.update_contents(REPO, LOG_FILE, msg, sha, msg)
+    # client = Octokit::Client.new ENV['ACCESS_TOKEN']
+    # sha = client.contents(REPO, :path => LOG_FILE)[:sha]
+    # client.update_contents(REPO, LOG_FILE, msg, sha, msg)
   end
 end
 
