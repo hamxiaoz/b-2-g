@@ -1,4 +1,5 @@
-require 'sinatra/base'
+# require 'sinatra/base'
+require 'sinatra'
 require 'json'
 require 'cgi'
 require 'octokit'
