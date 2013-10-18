@@ -3,7 +3,7 @@ require 'sinatra'
 require 'json'
 require 'cgi'
 require 'octokit'
-require 'figaro'
+# require 'figaro'
 
 # class Application < Sinatra::Base
 get '/' do
