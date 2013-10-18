@@ -32,17 +32,19 @@ class Application < Sinatra::Base
   end
 end
 
-# figaro with sinatra, see https://github.com/laserlemon/figaro/issues/60
-module Figaro
-  def path
-    @path ||= File.join(Application.settings.root, "config", "application.yml")
+if Application.settings.development?
+  # figaro with sinatra, see https://github.com/laserlemon/figaro/issues/60
+  module Figaro
+    def path
+      @path ||= File.join(Application.settings.root, "config", "application.yml")
+    end
+
+    def environment
+      Application.settings.environment
+    end
   end
 
-  def environment
-    Application.settings.environment
+  Figaro.env.each do |key, value|
+    ENV[key] = value unless ENV.key?(key)
   end
-end
-
-Figaro.env.each do |key, value|
-  ENV[key] = value unless ENV.key?(key)
 end
