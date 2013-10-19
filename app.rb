@@ -12,6 +12,8 @@ class Application < Sinatra::Base
 
   get '/' do
     ENV['WELCOME_MSG']
+    puts ENV['WELCOME_MSG'].class
+    puts ENV['ACCESS_TOKEN'].class
   end
 
   REPO = "hamxiaoz/bitbucket-activity"
@@ -28,6 +30,8 @@ class Application < Sinatra::Base
           obfuscated = c['message'].gsub /[^\n\r]/, "*"
           "#{c['utctimestamp']}, #{obfuscated}"
           end.join
+
+    puts msg
 
     # replace file content with msg and commit with msg
     client = Octokit::Client.new ENV['ACCESS_TOKEN']
