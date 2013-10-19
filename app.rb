@@ -24,9 +24,10 @@ class Application < Sinatra::Base
     # The payload is url encode content.
     json = JSON.parse(CGI.unescape(request.body.read().sub(/^payload=/, "")))
     msg = json['commits'].map do |c|
-          # obfuscate message with '*'
-          obfuscated = c['message'].gsub /[^\n\r]/, "*"
-          "#{c['utctimestamp']}, #{obfuscated}"
+            # obfuscate message with '*'
+            obfuscated_msg = c['message'].gsub /[^\n\r]/, "*"
+            obfuscated_repo_name = c['repository']['name'].gsub /[A-Za-z0-9]/, "x"
+            "#{c['utctimestamp']}, [#{obfuscated_repo_name}], #{obfuscated_msg}"
           end.join
 
     # replace file content with msg and commit with msg
