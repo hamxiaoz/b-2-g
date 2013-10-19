@@ -2,11 +2,16 @@ require 'sinatra'
 require 'json'
 require 'cgi'
 require 'octokit'
-require 'figaro'
 
 class Application < Sinatra::Base
+
+  configure :development do
+    require 'dotenv'
+    Dotenv.load
+  end
+
   get '/' do
-    'Hi'
+    ENV['WELCOME_MSG']
   end
 
   REPO = "hamxiaoz/bitbucket-activity"
@@ -23,28 +28,10 @@ class Application < Sinatra::Base
           obfuscated = c['message'].gsub /[^\n\r]/, "*"
           "#{c['utctimestamp']}, #{obfuscated}"
           end.join
-    puts msg
 
     # replace file content with msg and commit with msg
-    # client = Octokit::Client.new ENV['ACCESS_TOKEN']
-    # sha = client.contents(REPO, :path => LOG_FILE)[:sha]
-    # client.update_contents(REPO, LOG_FILE, msg, sha, msg)
+    client = Octokit::Client.new ENV['ACCESS_TOKEN']
+    sha = client.contents(REPO, :path => LOG_FILE)[:sha]
+    client.update_contents(REPO, LOG_FILE, msg, sha, msg)
   end
 end
-
-# if Application.settings.development?
-#   # figaro with sinatra, see https://github.com/laserlemon/figaro/issues/60
-#   module Figaro
-#     def path
-#       @path ||= File.join(Application.settings.root, "config", "application.yml")
-#     end
-
-#     def environment
-#       Application.settings.environment
-#     end
-#   end
-
-#   Figaro.env.each do |key, value|
-#     ENV[key] = value unless ENV.key?(key)
-#   end
-# end
