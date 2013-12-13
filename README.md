@@ -1,5 +1,5 @@
 # b-2-g
-Bitbucket activity transform to Github activity
+It acts as a web hook. Set up web hook on Bitbucket and the activity will be transformed to Github activity
 
 # How it works
 1. Deploy this app to Heroku
