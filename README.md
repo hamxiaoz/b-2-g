@@ -8,7 +8,9 @@ It acts as a web hook. Set up web hook on Bitbucket and the activity will be tra
 
 # How to deploy
 1. Create a new Personal Access Tokens from github
-2. Deploy to Heroku
+2. Create a github repo to recieve those commits from Bitbucket first
+3. Update the ruby file to use the above repo name: https://github.com/hamxiaoz/b-2-g/blob/master/app.rb#L17
+4. Deploy to Heroku
 
     ```ruby
     git clone
@@ -18,6 +20,6 @@ It acts as a web hook. Set up web hook on Bitbucket and the activity will be tra
     heroku config:add ACCESS_TOKEN=xxxxxxx
     ```
     
-3. Setup 'POST' hook in Bitbucket to your Heroku app:
+5. Setup 'POST' hook in Bitbucket to your Heroku app:
 `xxxxx.herokuapp.com/commits`
 
